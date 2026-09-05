@@ -64,7 +64,7 @@
 
   <!-- Header -->
   <text x="44" y="46" class="act-title">Contribution Activity</text>
-  <text x="44" y="68" class="act-sub">4 contributions in the last year</text>
+  <text x="44" y="68" class="act-sub">5 contributions in the last year</text>
 
   <!-- Legend on Top Right -->
   <g transform="translate(780, 36)">
@@ -102,7 +102,7 @@
     <rect x="102" y="82" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="102" y="98" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="102" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="102" y="130" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
+    <rect x="102" y="130" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
     <rect x="102" y="146" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="102" y="162" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="102" y="178" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
@@ -234,7 +234,7 @@
     <rect x="390" y="178" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="406" y="82" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="406" y="98" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="406" y="114" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
+    <rect x="406" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="406" y="130" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="406" y="146" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="406" y="162" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
@@ -388,7 +388,7 @@
     <rect x="742" y="178" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="82" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="98" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="758" y="114" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
+    <rect x="758" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="130" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="146" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="162" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
@@ -440,7 +440,7 @@
     <rect x="870" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="870" y="130" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="870" y="146" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="870" y="162" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
+    <rect x="870" y="162" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
     <rect x="870" y="178" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
   </g>
 

@@ -95,10 +95,10 @@
     <g transform="translate(228, 0)">
       <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <text x="20" y="28" class="widget-label">Contributions</text>
-      <text x="20" y="66" class="widget-val" fill="#c084fc">4</text>
+      <text x="20" y="66" class="widget-val" fill="#c084fc">5</text>
       <!-- Mini Progress Line: Purple -->
       <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
-      <rect x="20" y="76" width="140" height="3" rx="1.5" fill="#a855f7"/>
+      <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#a855f7"/>
     </g>
 
     <!-- Widget 3: Repos -->
