@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 210" width="960" height="210">
+  <defs>
+    <!-- Dark Glass Base Gradient with purple/blue lower edge -->
+    <linearGradient id="sig-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05080c"/>
+      <stop offset="50%" stop-color="#07181e"/>
+      <stop offset="85%" stop-color="#092228"/>
+      <stop offset="100%" stop-color="#121834"/>
+    </linearGradient>
+
+    <!-- Sub-widget background -->
+    <linearGradient id="sig-widget-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#051217"/>
+      <stop offset="100%" stop-color="#071920"/>
+    </linearGradient>
+
+    <!-- Border Gradient -->
+    <linearGradient id="sig-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2c3" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <linearGradient id="sig-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="25%" stop-color="#00f2c3" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+
+    <filter id="sig-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      .sig-title {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 24px;
+        font-weight: 800;
+        fill: #ffffff;
+      }
+      .sig-sub {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 12.5px;
+        fill: #00f2c3;
+        font-weight: 500;
+      }
+      .widget-label {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 11.5px;
+        fill: #8b949e;
+        font-weight: 600;
+      }
+      .widget-val {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 36px;
+        font-weight: 800;
+      }
+      .watermark {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 9px;
+        fill: #8b949e;
+        opacity: 0.35;
+      }
+    </style>
+  </defs>
+
+  <!-- Chassis -->
+  <rect x="1" y="1" width="958" height="208" rx="16" fill="url(#sig-bg)" stroke="url(#sig-border)" stroke-width="1.2"/>
+  <rect x="1" y="1" width="958" height="208" rx="16" fill="url(#sig-shine)"/>
+
+  <!-- Top Title Area -->
+  <text x="32" y="44" class="sig-title">Profile Signal</text>
+  <text x="32" y="66" class="sig-sub">Live GitHub stats styled by GitSkins</text>
+
+  <!-- Top Right Indicator Dot -->
+  <circle cx="920" cy="38" r="4.5" fill="#00f2c3" filter="url(#sig-glow)"/>
+
+  <!-- 4 Metric Widgets -->
+  <g transform="translate(30, 84)">
+    <!-- Widget 1: Stars -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <text x="20" y="28" class="widget-label">Stars</text>
+      <text x="20" y="66" class="widget-val" fill="#00f2c3">0</text>
+      <!-- Mini Progress Line -->
+      <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
+      <rect x="20" y="76" width="18" height="3" rx="1.5" fill="#00f2c3"/>
+    </g>
+
+    <!-- Widget 2: Contributions -->
+    <g transform="translate(228, 0)">
+      <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <text x="20" y="28" class="widget-label">Contributions</text>
+      <text x="20" y="66" class="widget-val" fill="#c084fc">3</text>
+      <!-- Mini Progress Line: Purple -->
+      <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
+      <rect x="20" y="76" width="145" height="3" rx="1.5" fill="#a855f7"/>
+    </g>
+
+    <!-- Widget 3: Repos -->
+    <g transform="translate(456, 0)">
+      <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <text x="20" y="28" class="widget-label">Repos</text>
+      <text x="20" y="66" class="widget-val" fill="#60a5fa">1</text>
+      <!-- Mini Progress Line: Blue -->
+      <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
+      <rect x="20" y="76" width="48" height="3" rx="1.5" fill="#3b82f6"/>
+    </g>
+
+    <!-- Widget 4: Followers -->
+    <g transform="translate(684, 0)">
+      <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <text x="20" y="28" class="widget-label">Followers</text>
+      <text x="20" y="66" class="widget-val" fill="#00f2c3">0</text>
+      <!-- Mini Progress Line -->
+      <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
+      <rect x="20" y="76" width="18" height="3" rx="1.5" fill="#00f2c3"/>
+    </g>
+  </g>
+
+  <!-- Watermark -->
+  <text x="936" y="198" text-anchor="end" class="watermark">gitskins.com</text>
+</svg>

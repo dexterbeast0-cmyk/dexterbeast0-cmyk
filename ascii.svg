@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580">
+  <defs>
+    <!-- Dark Glass Chassis Gradient -->
+    <linearGradient id="hero-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05080b"/>
+      <stop offset="40%" stop-color="#07151a"/>
+      <stop offset="100%" stop-color="#092024"/>
+    </linearGradient>
+
+    <!-- Sub-Panel Background -->
+    <linearGradient id="panel-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#040b10"/>
+      <stop offset="100%" stop-color="#061217"/>
+    </linearGradient>
+
+    <!-- Glowing Teal Border Gradient -->
+    <linearGradient id="hero-border" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2c3" stop-opacity="0.35"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#00f2c3" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Top Highlight Sweep -->
+    <linearGradient id="top-shine-hero" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.09"/>
+      <stop offset="15%" stop-color="#00f2c3" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Animated Horizontal Light Sweep Beam -->
+    <linearGradient id="live-beam" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#00f2c3" stop-opacity="0"/>
+      <stop offset="40%" stop-color="#00f2c3" stop-opacity="0.18"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.32"/>
+      <stop offset="60%" stop-color="#00f2c3" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#00f2c3" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Soft Glow Filter -->
+    <filter id="teal-glow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="2.5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      .term-title {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        fill: #00f2c3;
+        font-weight: 500;
+      }
+      .live-badge {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 11px;
+        fill: #00f2c3;
+        font-weight: 700;
+        letter-spacing: 1px;
+      }
+      .sub-title {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 11px;
+        font-weight: 700;
+        fill: #00f2c3;
+        letter-spacing: 1.5px;
+      }
+      .ascii-face {
+        font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, monospace;
+        font-size: 7.2px;
+        fill: #c9d1d9;
+        font-weight: 500;
+        white-space: pre;
+      }
+      .sys-label {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        fill: #00f2c3;
+        font-weight: 600;
+      }
+      .sys-dots {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 12px;
+        fill: #143533;
+        letter-spacing: 2px;
+      }
+      .sys-value {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 12.5px;
+        fill: #e6edf3;
+        font-weight: 500;
+      }
+      .watermark {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 9px;
+        fill: #8b949e;
+        opacity: 0.35;
+      }
+    </style>
+  </defs>
+
+  <!-- Outer Glass Frame -->
+  <rect x="1" y="1" width="958" height="578" rx="16" fill="url(#hero-bg)" stroke="url(#hero-border)" stroke-width="1.2"/>
+  <rect x="1" y="1" width="958" height="578" rx="16" fill="url(#top-shine-hero)"/>
+
+  <!-- Top Terminal Header -->
+  <path d="M 1 16 C 1 7.7 7.7 1 16 1 L 944 1 C 952.3 1 959 7.7 959 16 L 959 36 L 1 36 Z" fill="#04090e" stroke="#14262c" stroke-width="0.8"/>
+  <line x1="1" y1="36" x2="959" y2="36" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.3"/>
+
+  <!-- Window Dots -->
+  <circle cx="24" cy="18" r="4.5" fill="#ff5f56"/>
+  <circle cx="40" cy="18" r="4.5" fill="#ffbd2e"/>
+  <circle cx="56" cy="18" r="4.5" fill="#27c93f"/>
+
+  <!-- Center Command Prompt -->
+  <text x="480" y="22" text-anchor="middle" class="term-title">
+    dexterbeast0-cmyk@github ~ $ ./profile-scan --live
+  </text>
+
+  <!-- Live Status Badge -->
+  <circle cx="895" cy="18" r="3.5" fill="#00f2c3" filter="url(#teal-glow)"/>
+  <text x="906" y="22" class="live-badge">LIVE</text>
+
+  <!-- Left Sub-Panel: VISUAL.MAP -->
+  <rect x="20" y="48" width="450" height="512" rx="12" fill="url(#panel-bg)" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="36" y="70" class="sub-title">VISUAL.MAP</text>
+
+  <!-- Right Sub-Panel: SYSTEM.INFO -->
+  <rect x="480" y="48" width="460" height="512" rx="12" fill="url(#panel-bg)" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.25"/>
+  <text x="504" y="70" class="sub-title">SYSTEM.INFO</text>
+
+  <!-- ASCII Face in VISUAL.MAP -->
+  <g class="ascii-face">
+      <text x="36" y="88.0" xml:space="preserve">                                 #8&amp;&amp;#</text>
+      <text x="36" y="97.2" xml:space="preserve">                              #%8&amp;S&amp;SS&amp;%#oo</text>
+      <text x="36" y="106.4" xml:space="preserve">                             #8&amp;&amp;&amp;S&amp;&amp;&amp;8&amp;&amp;&amp;S&amp;88%#</text>
+      <text x="36" y="115.6" xml:space="preserve">                          o%88&amp;SS&amp;&amp;SS&amp;&amp;&amp;&amp;88&amp;8&amp;&amp;&amp;&amp;8#s</text>
+      <text x="36" y="124.8" xml:space="preserve">                            %88&amp;&amp;&amp;&amp;&amp;&amp;SS&amp;&amp;S&amp;&amp;&amp;SS&amp;&amp;S&amp;&amp;&amp;8%o</text>
+      <text x="36" y="134.0" xml:space="preserve">                         o8&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;SS&amp;&amp;&amp;&amp;&amp;&amp;SS&amp;8%o</text>
+      <text x="36" y="143.2" xml:space="preserve">                        %SSSSSSSS@SSSSSSSSSS&amp;&amp;&amp;SSSSS&amp;&amp;&amp;&amp;&amp;&amp;&amp;&amp;8</text>
+      <text x="36" y="152.4" xml:space="preserve">                       oSSSSSSSSS&amp;8%%88&amp;S&amp;&amp;&amp;&amp;&amp;&amp;SSSSSSS&amp;&amp;&amp;&amp;&amp;&amp;&amp;S%</text>
+      <text x="36" y="161.6" xml:space="preserve">                       &amp;SSSSS&amp;&amp;%s**csso#8&amp;S&amp;&amp;SSSSSSSS@SSSSSS&amp;&amp;S8</text>
+      <text x="36" y="170.8" xml:space="preserve">                      s&amp;&amp;&amp;&amp;8&amp;8o+=+++***cso%&amp;&amp;SSSSSSSSSSSSSSSSSSS</text>
+      <text x="36" y="180.0" xml:space="preserve">                      #&amp;&amp;888#c====-==++**cso%&amp;SSSSSSSSSS&amp;&amp;&amp;SSSS@%</text>
+      <text x="36" y="189.2" xml:space="preserve">                      #888%c====++csc+===*css#8&amp;SSS@SSSSSSSSSSSS8</text>
+      <text x="36" y="198.4" xml:space="preserve">                      88%#+---=+*ccs#%#oc*+**co#%8&amp;&amp;SS@@@@@@SSSSS</text>
+      <text x="36" y="207.6" xml:space="preserve">                   cs*#%#+---===----=*o%%%oc++*cso#%8&amp;SS@@@@@@@S@%</text>
+      <text x="36" y="216.8" xml:space="preserve">                  *oc=*%+-=-=+*ssc***ccsccoo*+++**ccs#%&amp;SS@SSSSSS8</text>
+      <text x="36" y="226.0" xml:space="preserve">                  c+=+o*:---===*so8&amp;8%%%o*+++cc*soooooo#8&amp;S@SSSS@o</text>
+      <text x="36" y="235.2" xml:space="preserve">                  *==+c-------==+cs%%#%%s*=-=*cs##%&amp;&amp;&amp;8888&amp;SSS@@%</text>
+      <text x="36" y="244.4" xml:space="preserve">                  ==-c+--------==+*cccc*++==+so%%oc**cs#&amp;&amp;#8@@8</text>
+      <text x="36" y="253.6" xml:space="preserve">                  =-=o=-====----------===--=+s%8%##oossco&amp;#&amp;8</text>
+      <text x="36" y="262.8" xml:space="preserve">                   =*s-=====-------=====----+sooso8&amp;%&amp;8oss%</text>
+      <text x="36" y="272.0" xml:space="preserve">                     *============+*+----::-=soccsoo#%8%os</text>
+      <text x="36" y="281.2" xml:space="preserve">                     +=++========+==+cooc+++*co*+*cccssooc</text>
+      <text x="36" y="290.4" xml:space="preserve">                     ++**+++++++*+==+***coo%%ss+++****css</text>
+      <text x="36" y="299.6" xml:space="preserve">                     ++*c*+++co%#sc**csos#%%os*+++***csc</text>
+      <text x="36" y="308.8" xml:space="preserve">                     ++******s##%#ssooscco%%oc******ccs</text>
+      <text x="36" y="318.0" xml:space="preserve">                     c****cccc*+*****soo##o#8#ccccscss</text>
+      <text x="36" y="327.2" xml:space="preserve">                    =c#cccccc**cccscccccs%8%%&amp;#ssssss</text>
+      <text x="36" y="336.4" xml:space="preserve">                    =+#8#ossc*****co%#oooo#####ooo%o</text>
+      <text x="36" y="345.6" xml:space="preserve">                  s+=**#&amp;8%oc***+++*cooooooo#oo#%%o</text>
+      <text x="36" y="354.8" xml:space="preserve">                :c%-+**co8S&amp;%##ooooossssoo####%%o</text>
+      <text x="36" y="364.0" xml:space="preserve">              8o  o=+**cso%&amp;SS&amp;&amp;8&amp;8%%%#oo%8&amp;&amp;8o</text>
+      <text x="36" y="373.2" xml:space="preserve">            o&amp;S  .oc+***cso#%&amp;&amp;SSS&amp;&amp;SSSSSSSS&amp;</text>
+      <text x="36" y="382.4" xml:space="preserve">         o%&amp;&amp;&amp;S   .ss****cso##%8&amp;&amp;SSSSSSS&amp;8&amp;&amp;</text>
+      <text x="36" y="391.6" xml:space="preserve">   #%88&amp;SSS&amp;&amp;&amp;S     *occcccsoo##%%%88888%88S&amp;  #</text>
+      <text x="36" y="400.8" xml:space="preserve">&amp;SSSSSSSSS&amp;&amp;&amp;&amp;@#      cosccssooo#####%%%%8&amp;S   %@&amp;&amp;%o</text>
+      <text x="36" y="410.0" xml:space="preserve">&amp;&amp;&amp;&amp;&amp;SSSS&amp;&amp;&amp;&amp;&amp;S8:..   :+cssssoooooo#####%8S%=  oSSS@@@S&amp;%s</text>
+      <text x="36" y="419.2" xml:space="preserve">&amp;SSSSSSSS&amp;&amp;&amp;SSSS*.. =sc*==+*sssssssooo##%&amp;%--+:sSSSSSSS@@@S&amp;%o</text>
+      <text x="36" y="428.4" xml:space="preserve">@SSSSSSSSSSSS&amp;&amp;So  *#oc+==-:+cccccccsso##s+c8@s*@SSSSSSSSSSS@@S&amp;8#s</text>
+      <text x="36" y="437.6" xml:space="preserve"> &amp;@SSSSSSSSS&amp;&amp;&amp;S8:*s*+++-::::*******ccss==*o#%%=&amp;@SSSSSSSSSSSSSSSSSS&amp;%#</text>
+      <text x="36" y="446.8" xml:space="preserve">   &amp;@SSSSSS&amp;S&amp;&amp;SSc=::..:==:. :***++++**-:==+++s*o@SSSSSSSSSSSSSSSSSS@@</text>
+      <text x="36" y="456.0" xml:space="preserve">     &amp;@SS&amp;SSS&amp;&amp;&amp;So::.....:=+--***++++-:-:------=sSSSSSSSSSSSSSSSS@@S</text>
+      <text x="36" y="465.2" xml:space="preserve">        S@SS&amp;&amp;&amp;&amp;S&amp;-:.......:=--=+**+. .:-=-::::-*&amp;SSSSSSSSSSSS@@@&amp;</text>
+      <text x="36" y="474.4" xml:space="preserve">          8S@SS&amp;&amp;Sc.:........:...+=.:=+==-:::::-=8@SSSSSSS@@@@&amp;</text>
+      <text x="36" y="483.6" xml:space="preserve">              &amp;SSS%::............:-=++-::..::.:-=#SSSSSS@@S8</text>
+      <text x="36" y="492.8" xml:space="preserve">                 &amp;S+:...........:==.:..:...::.::-cSSSSS&amp;</text>
+  </g>
+
+  <!-- Telemetry in SYSTEM.INFO -->
+    <!-- Row: Subject -->
+    <text x="504" y="94" class="sys-label">Subject</text>
+    <text x="610" y="94" class="sys-dots">......................................</text>
+    <text x="916" y="94" text-anchor="end" class="sys-value">Abhay Pratap singh</text>
+    <!-- Row: Handle -->
+    <text x="504" y="136" class="sys-label">Handle</text>
+    <text x="610" y="136" class="sys-dots">......................................</text>
+    <text x="916" y="136" text-anchor="end" class="sys-value">@dexterbeast0-cmyk</text>
+    <!-- Row: Role -->
+    <text x="504" y="178" class="sys-label">Role</text>
+    <text x="610" y="178" class="sys-dots">......................................</text>
+    <text x="916" y="178" text-anchor="end" class="sys-value">Software developer building in public</text>
+    <!-- Row: Status -->
+    <text x="504" y="220" class="sys-label">Status</text>
+    <text x="610" y="220" class="sys-dots">......................................</text>
+    <text x="916" y="220" text-anchor="end" class="sys-value">Building | Learning | Shipping</text>
+    <!-- Row: Languages -->
+    <text x="504" y="262" class="sys-label">Languages</text>
+    <text x="610" y="262" class="sys-dots">......................................</text>
+    <text x="916" y="262" text-anchor="end" class="sys-value">Public repositories</text>
+    <!-- Row: Repositories -->
+    <text x="504" y="304" class="sys-label">Repositories</text>
+    <text x="610" y="304" class="sys-dots">......................................</text>
+    <text x="916" y="304" text-anchor="end" class="sys-value">1</text>
+    <!-- Row: Contributions -->
+    <text x="504" y="346" class="sys-label">Contributions</text>
+    <text x="610" y="346" class="sys-dots">......................................</text>
+    <text x="916" y="346" text-anchor="end" class="sys-value">3</text>
+    <!-- Row: Stars -->
+    <text x="504" y="388" class="sys-label">Stars</text>
+    <text x="610" y="388" class="sys-dots">......................................</text>
+    <text x="916" y="388" text-anchor="end" class="sys-value">0</text>
+    <!-- Row: Followers -->
+    <text x="504" y="430" class="sys-label">Followers</text>
+    <text x="610" y="430" class="sys-dots">......................................</text>
+    <text x="916" y="430" text-anchor="end" class="sys-value">0</text>
+    <!-- Row: Active Days -->
+    <text x="504" y="472" class="sys-label">Active Days</text>
+    <text x="610" y="472" class="sys-dots">......................................</text>
+    <text x="916" y="472" text-anchor="end" class="sys-value">3</text>
+    <!-- Row: Contact -->
+    <text x="504" y="514" class="sys-label">Contact</text>
+    <text x="610" y="514" class="sys-dots">......................................</text>
+    <text x="916" y="514" text-anchor="end" class="sys-value">github.com/dexterbeast0-cmyk</text>
+
+
+  <!-- Animated Cyan Sweep Beam Across Panels -->
+  <rect x="21" y="220" width="918" height="56" fill="url(#live-beam)" opacity="0.85" pointer-events="none">
+    <animate attributeName="y" values="80; 450; 80" dur="7s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Watermark -->
+  <text x="936" y="568" text-anchor="end" class="watermark">gitskins.com</text>
+</svg>

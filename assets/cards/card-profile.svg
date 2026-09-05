@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 210" width="960" height="210">
+  <defs>
+    <!-- Dark Glass Base Gradient with subtle blue-purple tint on bottom-right -->
+    <linearGradient id="card-prof-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05090e"/>
+      <stop offset="60%" stop-color="#07171d"/>
+      <stop offset="90%" stop-color="#09222a"/>
+      <stop offset="100%" stop-color="#141a38"/>
+    </linearGradient>
+
+    <!-- Glowing Teal Border Gradient -->
+    <linearGradient id="prof-border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2c3" stop-opacity="0.35"/>
+      <stop offset="70%" stop-color="#38bdf8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <!-- Top Glossy Reflection -->
+    <linearGradient id="prof-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="25%" stop-color="#00f2c3" stop-opacity="0.03"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+
+    <!-- Glow Filter -->
+    <filter id="cyan-glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <style>
+      .handle-text {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 14px;
+        fill: #00f2c3;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .name-text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 38px;
+        font-weight: 800;
+        fill: #ffffff;
+        letter-spacing: -0.5px;
+      }
+      .sub-text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 14.5px;
+        fill: #00f2c3;
+        font-weight: 400;
+      }
+      .pill-text {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        fill: #e6edf3;
+        font-weight: 500;
+      }
+      .watermark {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 9px;
+        fill: #8b949e;
+        opacity: 0.35;
+      }
+    </style>
+  </defs>
+
+  <!-- Outer Glass Frame -->
+  <rect x="1" y="1" width="958" height="208" rx="16" fill="url(#card-prof-bg)" stroke="url(#prof-border)" stroke-width="1.2"/>
+  <rect x="1" y="1" width="958" height="208" rx="16" fill="url(#prof-shine)"/>
+
+  <!-- Inner Panel -->
+  <rect x="24" y="18" width="912" height="174" rx="12" fill="#040d12" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.2"/>
+
+  <!-- Avatar Circle with Glowing Teal Ring -->
+  <g transform="translate(48, 42)">
+    <circle cx="48" cy="48" r="48" fill="#06181f" stroke="#00f2c3" stroke-width="2.5" filter="url(#cyan-glow)"/>
+    <circle cx="48" cy="48" r="45" fill="#f0f6fc"/>
+    
+    <!-- Authentic dexterbeast0-cmyk GitHub Identicon Pattern (green glyphs) -->
+    <g fill="#2da44e">
+      <!-- 5x5 Identicon Grid -->
+      <rect x="18" y="18" width="12" height="12"/>
+      <rect x="66" y="18" width="12" height="12"/>
+      <rect x="18" y="30" width="12" height="12"/>
+      <rect x="66" y="30" width="12" height="12"/>
+      
+      <rect x="18" y="42" width="60" height="12"/>
+      
+      <rect x="30" y="54" width="36" height="12"/>
+      
+      <rect x="18" y="66" width="24" height="12"/>
+      <rect x="54" y="66" width="24" height="12"/>
+    </g>
+  </g>
+
+  <!-- Text Hierarchy on Right of Avatar -->
+  <!-- Swoosh accent line above handle -->
+  <path d="M 180 44 Q 280 34 380 42" stroke="#00f2c3" stroke-width="1.2" stroke-opacity="0.45" fill="none"/>
+  
+  <text x="180" y="58" class="handle-text">@dexterbeast0-cmyk</text>
+  <text x="180" y="98" class="name-text">Abhay Pratap singh</text>
+  <text x="180" y="128" class="sub-text">Building with code on GitHub.</text>
+
+  <!-- 3 Pill Badges -->
+  <g transform="translate(180, 146)">
+    <!-- Pill 1: Open Source -->
+    <rect x="0" y="0" width="112" height="28" rx="14" fill="#071b22" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.35"/>
+    <text x="56" y="18" text-anchor="middle" class="pill-text">Open Source</text>
+
+    <!-- Pill 2: Projects -->
+    <rect x="124" y="0" width="94" height="28" rx="14" fill="#071b22" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.35"/>
+    <text x="171" y="18" text-anchor="middle" class="pill-text">Projects</text>
+
+    <!-- Pill 3: Systems -->
+    <rect x="230" y="0" width="94" height="28" rx="14" fill="#071b22" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.35"/>
+    <text x="277" y="18" text-anchor="middle" class="pill-text">Systems</text>
+  </g>
+
+  <!-- Radar Reticle / Concentric Circle Widget on Right -->
+  <g transform="translate(820, 105)" stroke="#00f2c3" stroke-width="0.8" opacity="0.3" fill="none">
+    <circle cx="0" cy="0" r="42"/>
+    <circle cx="0" cy="0" r="26"/>
+    <circle cx="0" cy="0" r="10"/>
+    <circle cx="-16" cy="-8" r="3" fill="#00f2c3" opacity="0.8"/>
+  </g>
+
+  <!-- Watermark -->
+  <text x="936" y="198" text-anchor="end" class="watermark">gitskins.com</text>
+</svg>

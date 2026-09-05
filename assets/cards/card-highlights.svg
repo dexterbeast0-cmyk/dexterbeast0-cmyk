@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 160" width="960" height="160">
+  <defs>
+    <!-- Dark Glass Base Gradient -->
+    <linearGradient id="hl-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05080c"/>
+      <stop offset="50%" stop-color="#08181f"/>
+      <stop offset="100%" stop-color="#0b242a"/>
+    </linearGradient>
+
+    <!-- Sub-card background -->
+    <linearGradient id="sub-card-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#051217"/>
+      <stop offset="100%" stop-color="#071920"/>
+    </linearGradient>
+
+    <!-- Glowing Teal Border -->
+    <linearGradient id="hl-border" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00f2c3" stop-opacity="0.3"/>
+      <stop offset="50%" stop-color="#38bdf8" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00f2c3" stop-opacity="0.3"/>
+    </linearGradient>
+
+    <linearGradient id="hl-shine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.08"/>
+      <stop offset="30%" stop-color="#00f2c3" stop-opacity="0.02"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+
+    <style>
+      .hl-header {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 11px;
+        font-weight: 700;
+        fill: #00f2c3;
+        letter-spacing: 2.5px;
+      }
+      .tile-title {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 16px;
+        font-weight: 700;
+        fill: #ffffff;
+      }
+      .tile-sub {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        font-size: 12px;
+        fill: #8b949e;
+      }
+      .watermark {
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        font-size: 9px;
+        fill: #8b949e;
+        opacity: 0.35;
+      }
+    </style>
+  </defs>
+
+  <!-- Chassis -->
+  <rect x="1" y="1" width="958" height="158" rx="16" fill="url(#hl-bg)" stroke="url(#hl-border)" stroke-width="1.2"/>
+  <rect x="1" y="1" width="958" height="158" rx="16" fill="url(#hl-shine)"/>
+
+  <!-- Header -->
+  <text x="32" y="32" class="hl-header">H I G H L I G H T S</text>
+
+  <!-- 3 Sub-Cards -->
+  <g transform="translate(30, 48)">
+    <!-- Sub-card 1: Code -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="286" height="88" rx="10" fill="url(#sub-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <!-- Accent bar on left: Green -->
+      <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#39d353"/>
+      <text x="24" y="38" class="tile-title">Code</text>
+      <text x="24" y="62" class="tile-sub">1 public repositories</text>
+    </g>
+
+    <!-- Sub-card 2: dexterbeast0-cmyk -->
+    <g transform="translate(306, 0)">
+      <rect x="0" y="0" width="286" height="88" rx="10" fill="url(#sub-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <!-- Accent bar on left: Cyan -->
+      <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#00f2c3"/>
+      <text x="24" y="38" class="tile-title">dexterbeast0-cmyk</text>
+      <text x="24" y="62" class="tile-sub">Featured project</text>
+    </g>
+
+    <!-- Sub-card 3: Impact -->
+    <g transform="translate(612, 0)">
+      <rect x="0" y="0" width="286" height="88" rx="10" fill="url(#sub-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
+      <!-- Accent bar on left: Blue -->
+      <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#58a6ff"/>
+      <text x="24" y="38" class="tile-title">Impact</text>
+      <text x="24" y="62" class="tile-sub">0 stars · 3 active days</text>
+    </g>
+  </g>
+
+  <!-- Watermark -->
+  <text x="936" y="148" text-anchor="end" class="watermark">gitskins.com</text>
+</svg>

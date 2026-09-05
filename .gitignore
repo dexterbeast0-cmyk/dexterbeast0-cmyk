@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Development artifacts & reference media
+scratch/
+test.mp4
+*.mp4
+
+# OS artifacts
+.DS_Store
+Thumbs.db
