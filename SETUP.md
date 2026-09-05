@@ -1,6 +1,6 @@
 # Terminal Profile & Cyber Vector Dashboard — Setup & Maintenance
 
-This repository houses the terminal-dashboard GitHub profile system for **Abhay Pratap Singh** (`dexterbeast0-cmyk/dexterbeast0-cmyk`). It autonomously generates a high-resolution character-density vector portrait (`ascii.svg`), an animated ASCII wordmark (`name.svg`), and a complete suite of glossy glassmorphic dashboard cards (`assets/cards/`).
+This repository houses the terminal-dashboard GitHub profile system for **Abhay Pratap Singh** (`dexterbeast0-cmyk/dexterbeast0-cmyk`). It autonomously generates a high-resolution character-density vector portrait (`ascii.svg`), an animated ASCII wordmark (`name.svg`), and a complete suite of glossy glassmorphic dashboard cards (`assets/cards/`) driven by live GitHub telemetry.
 
 ---
 
@@ -11,11 +11,11 @@ dexterbeast0-cmyk/
 │
 ├── .github/
 │   └── workflows/
-│       └── portrait.yml         # CI/CD workflow to regenerate profile assets
+│       └── portrait.yml         # CI/CD workflow (daily schedule + push triggers)
 │
 ├── assets/
-│   ├── profile-pro.jpg          # Primary source portrait photo
-│   ├── profile.jpg              # Original / backup portrait reference
+│   ├── profile-pro.jpg          # Primary studio portrait source photo
+│   ├── profile.jpg              # Secondary reference portrait
 │   └── cards/                   # Glassmorphic cyber terminal dashboard cards
 │       ├── card-profile.svg     # Identity card with identicon & reticle
 │       ├── card-highlights.svg  # Top highlights card
@@ -25,10 +25,14 @@ dexterbeast0-cmyk/
 │       ├── card-activity.svg    # 52-week activity heatmap
 │       └── card-contact.svg     # Connect button with GitHub handle
 │
+├── data/
+│   └── github.json              # Normalized live GitHub profile telemetry
+│
 ├── scripts/
 │   ├── make_portrait.py         # Master entrypoint for profile asset regeneration
 │   ├── generate_cards.py        # Glassmorphic card & terminal window rendering engine
-│   └── build_ascii_name.py      # High-density ASCII nameplate generator
+│   ├── build_ascii_name.py      # High-density ASCII nameplate generator
+│   └── fetch_github_data.py     # Live GitHub telemetry collector
 │
 ├── ascii.svg                    # Hero terminal scan (VISUAL.MAP + SYSTEM.INFO)
 ├── name.svg                     # Animated ASCII wordmark (ABHAY PRATAP SINGH)
@@ -60,38 +64,64 @@ pip install -r requirements.txt
 
 ---
 
-## 3. How to Run the Generator
+## 3. How to Run the Generators
 
-To regenerate all profile assets (`name.svg`, `ascii.svg`, and all cards in `assets/cards/`):
+### Fetch Live GitHub Telemetry:
+```bash
+python scripts/fetch_github_data.py
+```
+Fetches real data from the GitHub API and writes normalized metrics to `data/github.json`.
 
+### Regenerate All Profile Assets:
 ```bash
 python scripts/make_portrait.py
 ```
-
-This single command:
-1. Generates `name.svg` via `scripts/build_ascii_name.py`.
-2. Segments `assets/profile-pro.jpg` and produces `ascii.svg` with live telemetry.
-3. Renders the complete suite of glassmorphic cards in `assets/cards/`.
+This command:
+1. Loads `data/github.json`.
+2. Generates `name.svg` via `scripts/build_ascii_name.py`.
+3. Segments `assets/profile-pro.jpg` and produces `ascii.svg` with live telemetry.
+4. Renders the complete suite of glassmorphic cards in `assets/cards/`.
 
 ---
 
-## 4. How the Portrait is Generated
+## 4. How the Telemetry Pipeline Works
+
+1. **Data Collection (`scripts/fetch_github_data.py`)**:
+   - Queries GitHub REST API for user profile metrics (`public_repos`, `followers`, `following`, `created_at`).
+   - Analyzes public repositories to calculate real star counts, language bytes, and project metadata.
+   - Fetches public contribution calendar data (total contributions, active days, and 52x7 week cells).
+   - Writes normalized, deterministic JSON to `data/github.json`.
+   - **Failure Safety**: If the GitHub API fails or rate-limits, existing telemetry in `data/github.json` is preserved without overwriting valid data with zeroes.
+
+2. **Card Generation (`scripts/generate_cards.py`)**:
+   - Reads `data/github.json` and renders live numbers into all cards:
+     - `ascii.svg`: Shows real repository counts, stars, contributions, and active days alongside the ASCII face.
+     - `card-profile.svg`: Shows authentic username and handle.
+     - `card-highlights.svg`: Shows real public repository count and featured repository.
+     - `card-signal.svg`: Displays live metrics for Stars, Contributions, Repos, and Followers.
+     - `card-stack.svg`: Visualizes repository-weighted programming languages.
+     - `card-work.svg`: Displays real public projects and metadata.
+     - `card-activity.svg`: Renders authentic contribution heatmap cells and total count.
+
+---
+
+## 5. How the Portrait is Generated
 
 1. **Source Photo**: The generator reads `assets/profile-pro.jpg`.
-2. **Background Segmentation**: Multi-point edge flood-filling and color-distance analysis isolate the subject from the backdrop, fading the boundary smoothly into the terminal canvas `#040d12`.
+2. **Background Segmentation**: Multi-point edge flood-filling and color-distance analysis isolate the subject from the backdrop, fading smoothly into the terminal canvas `#040d12`.
 3. **Contrast & Edge Enhancement**: Fine unsharp masking and inverted edge blending emphasize facial contours, eyes, and jawline definition.
 4. **Calibrated Monospace Ramp**: Pixels are mapped to high-density monospace glyphs (` .:-=+*cso#%8&S@`) across 160 columns at an aspect ratio factor of 0.51.
-5. **Dual-Panel Integration**: The segmented portrait is embedded into the left panel (`VISUAL.MAP`) while the right panel (`SYSTEM.INFO`) renders a cyber telemetry console with dotted-leader metrics.
+5. **Dual-Panel Integration**: Embedded into `VISUAL.MAP` (left) alongside `SYSTEM.INFO` (right) with live telemetry.
 
 ### How to Replace the Portrait
 To update your portrait photo:
-1. Replace `assets/profile-pro.jpg` with your new studio headshot (portrait aspect ratio recommended).
+1. Replace `assets/profile-pro.jpg` with your new studio headshot.
 2. Run `python scripts/make_portrait.py`.
 3. Commit and push the changes.
 
 ---
 
-## 5. How the Name is Generated
+## 6. How the Name is Generated
 
 The name banner (`name.svg`) is engineered using high-density character-matrix typography matching the aesthetic of the facial ASCII art:
 1. **Normalized Matrix**: Each character in `ABHAY PRATAP SINGH` is constructed on a 12-column normalized monospace grid using density-mapped ASCII characters (`8`, `:`, `.`, `'`).
@@ -105,15 +135,13 @@ The name banner (`name.svg`) is engineered using high-density character-matrix t
 
 ---
 
-## 6. GitHub Actions CI/CD Automation
+## 7. GitHub Actions CI/CD Automation
 
-The automated workflow in `.github/workflows/portrait.yml` runs automatically whenever:
-- A new source image is committed to `assets/profile-pro.jpg`.
-- Code changes occur inside `scripts/**`.
-- `requirements.txt` is updated.
+The automated workflow in `.github/workflows/portrait.yml` runs:
+1. **Daily on Schedule**: Every day at 02:17 UTC (`17 2 * * *`) to fetch fresh GitHub statistics.
+2. **On Push**: When changes occur to `assets/profile-pro.jpg`, `scripts/**`, or `requirements.txt`.
+3. **Manual Trigger**: Supports `workflow_dispatch` for on-demand refreshes directly from the GitHub Actions tab.
 
-### Execution Flow:
-1. Checks out the repository.
-2. Sets up Python 3.11 with cached pip dependencies.
-3. Executes `python scripts/make_portrait.py`.
-4. Commits and pushes any updated SVGs back to `main` with `[skip ci]` to prevent recursive workflow triggers.
+### Change Detection & Loop Prevention:
+- Executes `git diff --staged --quiet`. If telemetry and SVGs have not changed, the workflow exits cleanly with zero commits.
+- If changes are detected, commits with `[skip ci]` to prevent infinite recursive runs.

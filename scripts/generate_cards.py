@@ -10,11 +10,14 @@ Generates the complete GitSkins Cyber Terminal Dashboard design system matching 
 5. assets/cards/card-signal.svg: Profile Signal with 4 live metric widgets (Stars, Contributions, Repos, Followers)
 6. assets/cards/card-stack.svg: Language Stack with repository-weighted progress bars
 7. assets/cards/card-work.svg: PROJECTS.LIST with project cards (dexterbeast0-cmyk and toolkit)
-8. assets/cards/card-activity.svg: Contribution Activity with 52x7 heatmap grid and 3 live contributions
+8. assets/cards/card-activity.svg: Contribution Activity with 52x7 heatmap grid and live contributions
 9. assets/cards/card-contact.svg: Connect button card with GitHub @dexterbeast0-cmyk pill
+
+All metrics are dynamically rendered from data/github.json with deterministic output.
 """
 
 import collections
+import json
 import math
 import os
 import sys
@@ -22,6 +25,61 @@ import xml.sax.saxutils as saxutils
 from PIL import Image, ImageEnhance, ImageFilter
 
 RAMP_16 = " .:-=+*cso#%8&S@"
+
+def load_telemetry():
+    """Loads normalized telemetry from data/github.json with resilient fallback."""
+    data_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "github.json")
+    if os.path.exists(data_path):
+        try:
+            with open(data_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        except Exception as e:
+            print(f"[WARN] Error loading {data_path}: {e}")
+    
+    # Truthful fallback matching authentic state
+    return {
+        "synced_at": "2026-09-05 04:15 UTC",
+        "username": "dexterbeast0-cmyk",
+        "display_name": "Abhay Pratap singh",
+        "stats": {
+            "public_repos": 1,
+            "followers": 0,
+            "following": 0,
+            "stars": 0,
+            "forks": 0,
+            "total_contributions": 4,
+            "active_days": 3
+        },
+        "top_repositories": [
+            {
+                "name": "dexterbeast0-cmyk",
+                "description": "Building with code on GitHub.",
+                "language": "Python",
+                "stars": 0,
+                "progress_percent": 80,
+                "tag": "open-source",
+                "updated_at": "2026-09-05"
+            },
+            {
+                "name": "toolkit",
+                "description": "Reusable building blocks and utilities.",
+                "language": "Python",
+                "stars": 0,
+                "progress_percent": 65,
+                "tag": "utilities",
+                "updated_at": "building"
+            }
+        ],
+        "languages": [
+            {"name": "Python", "percentage": 100, "bytes": 67258}
+        ],
+        "contributions": {
+            "total": 4,
+            "active_days": 3,
+            "active_cells": [[22, 2], [44, 2], [51, 6]]
+        }
+    }
+
 
 def get_face_ascii(cols=76, char_ar=0.52):
     """
@@ -127,15 +185,23 @@ def generate_name_svg(output_path="name.svg"):
     build_ascii_name.build_name_svg(output_path)
 
 
-
-def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
+def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg", telemetry=None):
     """
     Card 2: Hero terminal window with ./profile-scan --live.
     Two sub-panels:
       LEFT: VISUAL.MAP (ASCII face portrait)
       RIGHT: SYSTEM.INFO (Live telemetry table with dotted leaders)
-    Recreates frame_00.png and frame_02.png from test.mp4.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    stats = telemetry.get("stats", {})
+    username = telemetry.get("username", "dexterbeast0-cmyk")
+    display_name = telemetry.get("display_name", "Abhay Pratap singh")
+    synced_at = telemetry.get("synced_at", "2026-09-05 04:15 UTC")
+    
+    langs_list = telemetry.get("languages", [])
+    langs_summary = ", ".join(l["name"] for l in langs_list[:2]) if langs_list else "Python"
+
     svg_w = 960
     svg_h = 580
 
@@ -146,7 +212,6 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
     right_x = 480
 
     # ASCII lines for VISUAL.MAP
-    # char width ~ 5.3, line height ~ 9.0
     face_svg = []
     y_cur = sub_y + 40
     line_h = 9.2
@@ -157,17 +222,17 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
 
     # Telemetry data for SYSTEM.INFO
     system_fields = [
-        ("Subject", "Abhay Pratap singh"),
-        ("Handle", "@dexterbeast0-cmyk"),
+        ("Subject", display_name),
+        ("Handle", f"@{username}"),
         ("Role", "Software developer building in public"),
         ("Status", "Building | Learning | Shipping"),
-        ("Languages", "Public repositories"),
-        ("Repositories", "1"),
-        ("Contributions", "3"),
-        ("Stars", "0"),
-        ("Followers", "0"),
-        ("Active Days", "3"),
-        ("Contact", "github.com/dexterbeast0-cmyk"),
+        ("Languages", langs_summary),
+        ("Repositories", str(stats.get("public_repos", 1))),
+        ("Contributions", str(stats.get("total_contributions", 4))),
+        ("Stars", str(stats.get("stars", 0))),
+        ("Followers", str(stats.get("followers", 0))),
+        ("Active Days", str(stats.get("active_days", 3))),
+        ("Contact", f"github.com/{username}"),
     ]
 
     info_rows_svg = []
@@ -175,8 +240,6 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
     row_gap = 42
     for idx, (label, val) in enumerate(system_fields):
         ry = info_start_y + idx * row_gap
-        # Dotted leader line between label and value
-        dots = " " + "· " * 28
         info_rows_svg.append(f"""    <!-- Row: {label} -->
     <text x="{right_x + 24}" y="{ry}" class="sys-label">{label}</text>
     <text x="{right_x + 130}" y="{ry}" class="sys-dots">......................................</text>
@@ -234,8 +297,7 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
       .term-title {{
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12px;
-        fill: #00f2c3;
-        font-weight: 500;
+        fill: #8b949e;
       }}
       .live-badge {{
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -268,13 +330,13 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12px;
         fill: #143533;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
       }}
       .sys-value {{
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12.5px;
-        fill: #e6edf3;
-        font-weight: 500;
+        fill: #ffffff;
+        font-weight: 700;
       }}
       .watermark {{
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -300,7 +362,7 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
 
   <!-- Center Command Prompt -->
   <text x="{svg_w // 2}" y="22" text-anchor="middle" class="term-title">
-    dexterbeast0-cmyk@github ~ $ ./profile-scan --live
+    {username}@github ~ $ ./profile-scan --live
   </text>
 
   <!-- Live Status Badge -->
@@ -314,18 +376,20 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
   <!-- Right Sub-Panel: SYSTEM.INFO -->
   <rect x="{right_x}" y="{sub_y}" width="{right_w}" height="{sub_h}" rx="12" fill="url(#panel-bg)" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.25"/>
   <text x="{right_x + 24}" y="{sub_y + 22}" class="sub-title">SYSTEM.INFO</text>
+  <text x="{right_x + right_w - 24}" y="{sub_y + 22}" text-anchor="end" class="watermark" font-size="10">SYNCED: {synced_at}</text>
 
   <!-- ASCII Face in VISUAL.MAP -->
   <g class="ascii-face">
 {''.join(face_svg)}  </g>
 
-  <!-- Telemetry in SYSTEM.INFO -->
-{''.join(info_rows_svg)}
-
-  <!-- Animated Cyan Sweep Beam Across Panels -->
-  <rect x="21" y="220" width="{svg_w - 42}" height="56" fill="url(#live-beam)" opacity="0.85" pointer-events="none">
-    <animate attributeName="y" values="80; 450; 80" dur="7s" repeatCount="indefinite"/>
+  <!-- Animated Live Horizontal Scanning Laser across ASCII Face -->
+  <rect x="20" y="{sub_y}" width="{left_w}" height="40" fill="url(#live-beam)">
+    <animate attributeName="y" values="{sub_y};{sub_y + sub_h - 40};{sub_y}" dur="4.2s" repeatCount="indefinite"/>
   </rect>
+
+  <!-- Telemetry Table in SYSTEM.INFO -->
+  <g>
+{''.join(info_rows_svg)}  </g>
 
   <!-- Watermark -->
   <text x="{svg_w - 24}" y="{svg_h - 12}" text-anchor="end" class="watermark">gitskins.com</text>
@@ -336,12 +400,16 @@ def generate_hero_terminal_svg(ascii_lines, output_path="ascii.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_profile_identity_card(output_path="assets/cards/card-profile.svg"):
+def generate_profile_identity_card(output_path="assets/cards/card-profile.svg", telemetry=None):
     """
-    Card 3: Profile Identity Card.
+    Card 3: PROFILE IDENTITY Card.
     Avatar identicon, @dexterbeast0-cmyk, Abhay Pratap singh, subtitle, 3 pill buttons, radar reticle.
-    Recreates frame_05.png and frame_08.png from test.mp4.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    username = telemetry.get("username", "dexterbeast0-cmyk")
+    display_name = telemetry.get("display_name", "Abhay Pratap singh")
+
     svg_w = 960
     svg_h = 210
 
@@ -447,8 +515,8 @@ def generate_profile_identity_card(output_path="assets/cards/card-profile.svg"):
   <!-- Swoosh accent line above handle -->
   <path d="M 180 44 Q 280 34 380 42" stroke="#00f2c3" stroke-width="1.2" stroke-opacity="0.45" fill="none"/>
   
-  <text x="180" y="58" class="handle-text">@dexterbeast0-cmyk</text>
-  <text x="180" y="98" class="name-text">Abhay Pratap singh</text>
+  <text x="180" y="58" class="handle-text">@{username}</text>
+  <text x="180" y="98" class="name-text">{display_name}</text>
   <text x="180" y="128" class="sub-text">Building with code on GitHub.</text>
 
   <!-- 3 Pill Badges -->
@@ -483,12 +551,20 @@ def generate_profile_identity_card(output_path="assets/cards/card-profile.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_highlights_card(output_path="assets/cards/card-highlights.svg"):
+def generate_highlights_card(output_path="assets/cards/card-highlights.svg", telemetry=None):
     """
     Card 4: HIGHLIGHTS Card.
-    3 sub-cards: Code (1 public repositories), dexterbeast0-cmyk (Featured project), Impact (0 stars · 3 active days).
-    Recreates frame_08.png from test.mp4.
+    3 sub-cards: Code (public repositories), Featured Project, Impact (stars · active days).
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    stats = telemetry.get("stats", {})
+    top_repos = telemetry.get("top_repositories", [])
+    feat_repo = top_repos[0]["name"] if top_repos else "dexterbeast0-cmyk"
+    pub_repos = stats.get("public_repos", 1)
+    stars_val = stats.get("stars", 0)
+    active_days_val = stats.get("active_days", 3)
+
     svg_w = 960
     svg_h = 160
 
@@ -563,15 +639,15 @@ def generate_highlights_card(output_path="assets/cards/card-highlights.svg"):
       <!-- Accent bar on left: Green -->
       <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#39d353"/>
       <text x="24" y="38" class="tile-title">Code</text>
-      <text x="24" y="62" class="tile-sub">1 public repositories</text>
+      <text x="24" y="62" class="tile-sub">{pub_repos} public repositories</text>
     </g>
 
-    <!-- Sub-card 2: dexterbeast0-cmyk -->
+    <!-- Sub-card 2: Featured Project -->
     <g transform="translate(306, 0)">
       <rect x="0" y="0" width="286" height="88" rx="10" fill="url(#sub-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <!-- Accent bar on left: Cyan -->
       <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#00f2c3"/>
-      <text x="24" y="38" class="tile-title">dexterbeast0-cmyk</text>
+      <text x="24" y="38" class="tile-title">{feat_repo}</text>
       <text x="24" y="62" class="tile-sub">Featured project</text>
     </g>
 
@@ -581,7 +657,7 @@ def generate_highlights_card(output_path="assets/cards/card-highlights.svg"):
       <!-- Accent bar on left: Blue -->
       <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#58a6ff"/>
       <text x="24" y="38" class="tile-title">Impact</text>
-      <text x="24" y="62" class="tile-sub">0 stars · 3 active days</text>
+      <text x="24" y="62" class="tile-sub">{stars_val} stars · {active_days_val} active days</text>
     </g>
   </g>
 
@@ -594,12 +670,19 @@ def generate_highlights_card(output_path="assets/cards/card-highlights.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_signal_card(output_path="assets/cards/card-signal.svg"):
+def generate_signal_card(output_path="assets/cards/card-signal.svg", telemetry=None):
     """
     Card 5: Profile Signal Card.
-    4 metric widgets: Stars (0), Contributions (3), Repos (1), Followers (0).
-    Recreates frame_10.png from test.mp4.
+    4 metric widgets: Stars, Contributions, Repos, Followers.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    stats = telemetry.get("stats", {})
+    stars_val = stats.get("stars", 0)
+    contribs_val = stats.get("total_contributions", 4)
+    repos_val = stats.get("public_repos", 1)
+    followers_val = stats.get("followers", 0)
+
     svg_w = 960
     svg_h = 210
 
@@ -690,40 +773,40 @@ def generate_signal_card(output_path="assets/cards/card-signal.svg"):
     <g transform="translate(0, 0)">
       <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <text x="20" y="28" class="widget-label">Stars</text>
-      <text x="20" y="66" class="widget-val" fill="#00f2c3">0</text>
+      <text x="20" y="66" class="widget-val" fill="#00f2c3">{stars_val}</text>
       <!-- Mini Progress Line -->
       <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
-      <rect x="20" y="76" width="18" height="3" rx="1.5" fill="#00f2c3"/>
+      <rect x="20" y="76" width="{max(18, min(172, int(stars_val * 20)))}" height="3" rx="1.5" fill="#00f2c3"/>
     </g>
 
     <!-- Widget 2: Contributions -->
     <g transform="translate(228, 0)">
       <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <text x="20" y="28" class="widget-label">Contributions</text>
-      <text x="20" y="66" class="widget-val" fill="#c084fc">3</text>
+      <text x="20" y="66" class="widget-val" fill="#c084fc">{contribs_val}</text>
       <!-- Mini Progress Line: Purple -->
       <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
-      <rect x="20" y="76" width="145" height="3" rx="1.5" fill="#a855f7"/>
+      <rect x="20" y="76" width="{max(24, min(172, int(contribs_val * 35)))}" height="3" rx="1.5" fill="#a855f7"/>
     </g>
 
     <!-- Widget 3: Repos -->
     <g transform="translate(456, 0)">
       <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <text x="20" y="28" class="widget-label">Repos</text>
-      <text x="20" y="66" class="widget-val" fill="#60a5fa">1</text>
+      <text x="20" y="66" class="widget-val" fill="#60a5fa">{repos_val}</text>
       <!-- Mini Progress Line: Blue -->
       <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
-      <rect x="20" y="76" width="48" height="3" rx="1.5" fill="#3b82f6"/>
+      <rect x="20" y="76" width="{max(20, min(172, int(repos_val * 48)))}" height="3" rx="1.5" fill="#3b82f6"/>
     </g>
 
     <!-- Widget 4: Followers -->
     <g transform="translate(684, 0)">
       <rect x="0" y="0" width="212" height="96" rx="10" fill="url(#sig-widget-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <text x="20" y="28" class="widget-label">Followers</text>
-      <text x="20" y="66" class="widget-val" fill="#00f2c3">0</text>
+      <text x="20" y="66" class="widget-val" fill="#00f2c3">{followers_val}</text>
       <!-- Mini Progress Line -->
       <rect x="20" y="76" width="172" height="3" rx="1.5" fill="#12252c"/>
-      <rect x="20" y="76" width="18" height="3" rx="1.5" fill="#00f2c3"/>
+      <rect x="20" y="76" width="{max(18, min(172, int(followers_val * 25)))}" height="3" rx="1.5" fill="#00f2c3"/>
     </g>
   </g>
 
@@ -736,12 +819,39 @@ def generate_signal_card(output_path="assets/cards/card-signal.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_stack_card(output_path="assets/cards/card-stack.svg"):
+def generate_stack_card(output_path="assets/cards/card-stack.svg", telemetry=None):
     """
     Card 6: Language Stack Card.
-    Repository-weighted technologies: Python (52%), SVG/Vector (33%), GitHub Actions (15%).
-    Recreates frame_10.png and frame_12.png from test.mp4.
+    Repository-weighted technologies dynamically calculated from real public repos.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    languages = telemetry.get("languages", [])
+    if not languages:
+        languages = [{"name": "Python", "percentage": 100, "bytes": 67258}]
+
+    colors = ["#00f2c3", "#38bdf8", "#34d399", "#a78bfa"]
+    stack_rows_svg = []
+    y_gap = 36
+    bar_max_w = 600
+
+    for idx, lang in enumerate(languages[:3]):
+        ry = idx * y_gap
+        color = colors[idx % len(colors)]
+        pct = lang.get("percentage", 100)
+        filled_w = max(12, int(bar_max_w * (pct / 100.0)))
+        stack_rows_svg.append(f"""    <!-- Row {idx+1}: {lang['name']} -->
+    <g transform="translate(0, {ry})">
+      <circle cx="6" cy="11" r="4.5" fill="{color}"/>
+      <text x="22" y="16" class="lang-name">{lang['name']}</text>
+      <text x="230" y="16" class="lang-pct">{pct}%</text>
+      <!-- Progress Bar Track -->
+      <rect x="280" y="7" width="{bar_max_w}" height="9" rx="4.5" fill="#0b1e24"/>
+      <!-- Filled Bar -->
+      <rect x="280" y="7" width="{filled_w}" height="9" rx="4.5" fill="{color}"/>
+    </g>
+""")
+
     svg_w = 960
     svg_h = 220
 
@@ -820,39 +930,7 @@ def generate_stack_card(output_path="assets/cards/card-stack.svg"):
 
   <!-- Stack Bars -->
   <g transform="translate(32, 95)">
-    <!-- Row 1: Python -->
-    <g transform="translate(0, 0)">
-      <circle cx="6" cy="11" r="4.5" fill="#00f2c3"/>
-      <text x="22" y="16" class="lang-name">Python</text>
-      <text x="230" y="16" class="lang-pct">52%</text>
-      <!-- Progress Bar Track -->
-      <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#0b1e24"/>
-      <!-- Filled Bar -->
-      <rect x="280" y="7" width="312" height="9" rx="4.5" fill="#00f2c3"/>
-    </g>
-
-    <!-- Row 2: SVG / Vector -->
-    <g transform="translate(0, 36)">
-      <circle cx="6" cy="11" r="4.5" fill="#38bdf8"/>
-      <text x="22" y="16" class="lang-name">SVG / Vector</text>
-      <text x="230" y="16" class="lang-pct">33%</text>
-      <!-- Progress Bar Track -->
-      <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#0b1e24"/>
-      <!-- Filled Bar -->
-      <rect x="280" y="7" width="198" height="9" rx="4.5" fill="#38bdf8"/>
-    </g>
-
-    <!-- Row 3: YAML / CI-CD -->
-    <g transform="translate(0, 72)">
-      <circle cx="6" cy="11" r="4.5" fill="#34d399"/>
-      <text x="22" y="16" class="lang-name">YAML / Actions</text>
-      <text x="230" y="16" class="lang-pct">15%</text>
-      <!-- Progress Bar Track -->
-      <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#0b1e24"/>
-      <!-- Filled Bar -->
-      <rect x="280" y="7" width="90" height="9" rx="4.5" fill="#34d399"/>
-    </g>
-  </g>
+{''.join(stack_rows_svg)}  </g>
 
   <!-- Watermark -->
   <text x="{svg_w - 24}" y="{svg_h - 12}" text-anchor="end" class="watermark">gitskins.com</text>
@@ -863,15 +941,34 @@ def generate_stack_card(output_path="assets/cards/card-stack.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_work_card(output_path="assets/cards/card-work.svg"):
+def generate_work_card(output_path="assets/cards/card-work.svg", telemetry=None):
     """
     Card 7: PROJECTS.LIST Card.
-    PROJECTS.LIST ./projects.sh --all 2 pinned.
-    Two project sub-cards: dexterbeast0-cmyk and toolkit.
-    Recreates frame_12.png from test.mp4.
+    Automatically discovers and displays public projects with real metadata and status.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    top_repos = telemetry.get("top_repositories", [])
+    
+    p1 = top_repos[0] if len(top_repos) > 0 else {
+        "name": "dexterbeast0-cmyk", "description": "Building with code on GitHub.", "stars": 0, "progress_percent": 80, "tag": "open-source", "updated_at": "2026-09-05"
+    }
+    p2 = top_repos[1] if len(top_repos) > 1 else {
+        "name": "toolkit", "description": "Reusable building blocks and utilities.", "stars": 0, "progress_percent": 65, "tag": "utilities", "updated_at": "building"
+    }
+    pinned_count = min(len(top_repos), 2)
+
     svg_w = 960
     svg_h = 260
+
+    # Calculate donut stroke-dasharray (circumference = 175.9)
+    p1_pct = p1.get("progress_percent", 80)
+    p1_filled = 175.9 * (p1_pct / 100.0)
+    p1_dash = f"{p1_filled:.1f} {175.9 - p1_filled:.1f}"
+
+    p2_pct = p2.get("progress_percent", 65)
+    p2_filled = 175.9 * (p2_pct / 100.0)
+    p2_dash = f"{p2_filled:.1f} {175.9 - p2_filled:.1f}"
 
     svg_content = f"""<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {svg_w} {svg_h}" width="{svg_w}" height="{svg_h}">
   <defs>
@@ -965,58 +1062,67 @@ def generate_work_card(output_path="assets/cards/card-work.svg"):
 
   <!-- Top Header Line -->
   <text x="32" y="32" class="work-header">PROJECTS.LIST &#160;&#160;&#160; <tspan fill="#8b949e">./projects.sh --all</tspan></text>
-  <text x="{svg_w - 32}" y="32" text-anchor="end" class="work-pinned">2 pinned</text>
+  <text x="{svg_w - 32}" y="32" text-anchor="end" class="work-pinned">{pinned_count} pinned</text>
   <line x1="32" y1="42" x2="{svg_w - 32}" y2="42" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.2"/>
 
   <!-- Two Project Sub-Cards -->
   <g transform="translate(30, 56)">
-    <!-- Sub-Card 1: dexterbeast0-cmyk -->
+    <!-- Sub-Card 1 -->
     <g transform="translate(0, 0)">
       <rect x="0" y="0" width="436" height="176" rx="10" fill="url(#work-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <!-- Top mini bar inside card -->
       <path d="M 0 10 C 0 4.5 4.5 0 10 0 L 426 0 C 431.5 0 436 4.5 436 10 L 436 28 L 0 28 Z" fill="#061217"/>
       <line x1="0" y1="28" x2="436" y2="28" stroke="#00f2c3" stroke-width="0.6" stroke-opacity="0.2"/>
       <circle cx="16" cy="14" r="3" fill="#00f2c3"/>
-      <text x="26" y="18" font-family="ui-monospace, monospace" font-size="11" fill="#8b949e">awesome-project</text>
+      <text x="26" y="18" font-family="ui-monospace, monospace" font-size="11" fill="#8b949e">{p1['name']}</text>
       <circle cx="420" cy="14" r="3.5" fill="#39d353"/>
 
       <!-- Content -->
-      <text x="20" y="56" class="proj-title">awesome-project &#160;<tspan fill="#00f2c3">_</tspan></text>
-      <text x="20" y="78" class="proj-desc">A standout open-source project.</text>
+      <text x="20" y="56" class="proj-title">{p1['name']} &#160;<tspan fill="#00f2c3">_</tspan></text>
+      <text x="20" y="78" class="proj-desc">{p1['description'][:36]}</text>
 
-      <!-- Donut Progress Chart on Right: 80% -->
+      <!-- Donut Progress Chart on Right -->
       <g transform="translate(380, 84)">
         <circle cx="0" cy="0" r="28" fill="none" stroke="#0b242e" stroke-width="7"/>
-        <!-- 80% of 2*pi*28 = 175.9. Circumference = 175.9. 80% stroke = 140.7, dasharray = 140.7 35.2 -->
-        <circle cx="0" cy="0" r="28" fill="none" stroke="#38bdf8" stroke-width="7" stroke-dasharray="140.7 35.2" stroke-dashoffset="44" stroke-linecap="round" filter="url(#donut-glow)"/>
-        <text x="0" y="4" text-anchor="middle" class="donut-text">80%</text>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#38bdf8" stroke-width="7" stroke-dasharray="{p1_dash}" stroke-dashoffset="44" stroke-linecap="round" filter="url(#donut-glow)"/>
+        <text x="0" y="4" text-anchor="middle" class="donut-text">{p1_pct}%</text>
       </g>
 
       <!-- Pill Tag -->
       <rect x="20" y="104" width="88" height="22" rx="11" fill="#062227" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.35"/>
-      <text x="64" y="119" text-anchor="middle" class="proj-pill">open-source</text>
+      <text x="64" y="119" text-anchor="middle" class="proj-pill">{p1.get('tag', 'open-source')}</text>
 
       <!-- Footer Meta -->
-      <text x="20" y="152" class="proj-meta">★ 0 &#160;&#160; updated just now</text>
+      <text x="20" y="152" class="proj-meta">★ {p1['stars']} &#160;&#160; updated {p1['updated_at']}</text>
     </g>
 
-    <!-- Sub-Card 2: toolkit -->
+    <!-- Sub-Card 2 -->
     <g transform="translate(464, 0)">
       <rect x="0" y="0" width="436" height="176" rx="10" fill="url(#work-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <!-- Top mini bar -->
       <path d="M 0 10 C 0 4.5 4.5 0 10 0 L 426 0 C 431.5 0 436 4.5 436 10 L 436 28 L 0 28 Z" fill="#061217"/>
       <line x1="0" y1="28" x2="436" y2="28" stroke="#00f2c3" stroke-width="0.6" stroke-opacity="0.2"/>
       <circle cx="16" cy="14" r="3" fill="#00f2c3"/>
-      <text x="26" y="18" font-family="ui-monospace, monospace" font-size="11" fill="#8b949e">toolkit</text>
+      <text x="26" y="18" font-family="ui-monospace, monospace" font-size="11" fill="#8b949e">{p2['name']}</text>
       <circle cx="420" cy="14" r="3.5" fill="#39d353"/>
 
       <!-- Content -->
-      <text x="20" y="56" class="proj-title">toolkit &#160;<tspan fill="#00f2c3">_</tspan></text>
-      <text x="20" y="78" class="proj-desc">Reusable building blocks and</text>
-      <text x="20" y="96" class="proj-desc">utilities.</text>
+      <text x="20" y="56" class="proj-title">{p2['name']} &#160;<tspan fill="#00f2c3">_</tspan></text>
+      <text x="20" y="78" class="proj-desc">{p2['description'][:36]}</text>
+
+      <!-- Donut Progress Chart on Right -->
+      <g transform="translate(380, 84)">
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#0b242e" stroke-width="7"/>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#38bdf8" stroke-width="7" stroke-dasharray="{p2_dash}" stroke-dashoffset="44" stroke-linecap="round" filter="url(#donut-glow)"/>
+        <text x="0" y="4" text-anchor="middle" class="donut-text">{p2_pct}%</text>
+      </g>
+
+      <!-- Pill Tag -->
+      <rect x="20" y="104" width="88" height="22" rx="11" fill="#062227" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.35"/>
+      <text x="64" y="119" text-anchor="middle" class="proj-pill">{p2.get('tag', 'utilities')}</text>
 
       <!-- Footer Meta -->
-      <text x="20" y="152" class="proj-meta">★ 0 &#160;&#160; updated n/a</text>
+      <text x="20" y="152" class="proj-meta">★ {p2['stars']} &#160;&#160; updated {p2['updated_at']}</text>
     </g>
   </g>
 
@@ -1029,29 +1135,26 @@ def generate_work_card(output_path="assets/cards/card-work.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_activity_card(output_path="assets/cards/card-activity.svg"):
+def generate_activity_card(output_path="assets/cards/card-activity.svg", telemetry=None):
     """
     Card 8: Contribution Activity Card.
-    52x7 heatmap grid with 3 live contributions glowing teal.
-    Recreates frame_12.png and frame_14.png from test.mp4.
+    52x7 heatmap grid with live GitHub contributions glowing teal.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    contribs_data = telemetry.get("contributions", {})
+    total_contribs = contribs_data.get("total", 4)
+    active_cells = set(tuple(c) for c in contribs_data.get("active_cells", [[22, 2], [44, 2], [51, 6]]))
+
     svg_w = 960
     svg_h = 210
 
     # Build 52 columns x 7 rows heatmap grid
-    # cell size = 12, gap = 4
-    # grid width = 52 * 16 = 832
-    # grid height = 7 * 16 = 112
-    # x offset = (960 - 832) / 2 = 64
     grid_svg = []
     x_start = 54
     y_start = 82
     cell_size = 12
     gap = 4
-
-    # 3 genuine contributions in the past year:
-    # In frame_12.png, there is 1 active block around week 6, and 2 active blocks at the very end of the year!
-    active_cells = {(6, 2), (51, 5), (51, 6)}
 
     for col in range(52):
         for row in range(7):
@@ -1132,7 +1235,7 @@ def generate_activity_card(output_path="assets/cards/card-activity.svg"):
 
   <!-- Header -->
   <text x="44" y="46" class="act-title">Contribution Activity</text>
-  <text x="44" y="68" class="act-sub">3 contributions in the last year</text>
+  <text x="44" y="68" class="act-sub">{total_contribs} contributions in the last year</text>
 
   <!-- Legend on Top Right -->
   <g transform="translate({svg_w - 180}, 36)">
@@ -1157,12 +1260,15 @@ def generate_activity_card(output_path="assets/cards/card-activity.svg"):
     print(f"Generated {output_path}")
 
 
-def generate_contact_card(output_path="assets/cards/card-contact.svg"):
+def generate_contact_card(output_path="assets/cards/card-contact.svg", telemetry=None):
     """
-    Card 9: Connect / GitHub Badge Card.
-    Centered glass pill button with GitHub logo, GitHub header, @dexterbeast0-cmyk.
-    Recreates frame_14.png from test.mp4.
+    Card 9: CONNECT / CONTACT Card.
+    Centered GitHub pill button with @dexterbeast0-cmyk.
     """
+    if telemetry is None:
+        telemetry = load_telemetry()
+    username = telemetry.get("username", "dexterbeast0-cmyk")
+
     svg_w = 960
     svg_h = 120
 
@@ -1235,7 +1341,7 @@ def generate_contact_card(output_path="assets/cards/card-contact.svg"):
 
     <!-- Labels -->
     <text x="56" y="24" class="pill-lbl">GitHub</text>
-    <text x="56" y="40" class="pill-val">@dexterbeast0-cmyk</text>
+    <text x="56" y="40" class="pill-val">@{username}</text>
   </g>
 
   <!-- Watermark -->
@@ -1249,6 +1355,7 @@ def generate_contact_card(output_path="assets/cards/card-contact.svg"):
 
 def main():
     os.makedirs("assets/cards", exist_ok=True)
+    telemetry = load_telemetry()
 
     print("Generating ASCII face portrait lines...")
     face_lines = get_face_ascii(cols=76, char_ar=0.52)
@@ -1257,28 +1364,28 @@ def main():
     generate_name_svg("name.svg")
 
     print("2. Generating ascii.svg (Hero Terminal Window)...")
-    generate_hero_terminal_svg(face_lines, "ascii.svg")
+    generate_hero_terminal_svg(face_lines, "ascii.svg", telemetry)
 
     print("3. Generating assets/cards/card-profile.svg (Identity Card)...")
-    generate_profile_identity_card("assets/cards/card-profile.svg")
+    generate_profile_identity_card("assets/cards/card-profile.svg", telemetry)
 
     print("4. Generating assets/cards/card-highlights.svg (Highlights Card)...")
-    generate_highlights_card("assets/cards/card-highlights.svg")
+    generate_highlights_card("assets/cards/card-highlights.svg", telemetry)
 
     print("5. Generating assets/cards/card-signal.svg (Profile Signal Card)...")
-    generate_signal_card("assets/cards/card-signal.svg")
+    generate_signal_card("assets/cards/card-signal.svg", telemetry)
 
     print("6. Generating assets/cards/card-stack.svg (Language Stack Card)...")
-    generate_stack_card("assets/cards/card-stack.svg")
+    generate_stack_card("assets/cards/card-stack.svg", telemetry)
 
     print("7. Generating assets/cards/card-work.svg (PROJECTS.LIST Card)...")
-    generate_work_card("assets/cards/card-work.svg")
+    generate_work_card("assets/cards/card-work.svg", telemetry)
 
     print("8. Generating assets/cards/card-activity.svg (Contribution Activity Card)...")
-    generate_activity_card("assets/cards/card-activity.svg")
+    generate_activity_card("assets/cards/card-activity.svg", telemetry)
 
     print("9. Generating assets/cards/card-contact.svg (Connect Button Card)...")
-    generate_contact_card("assets/cards/card-contact.svg")
+    generate_contact_card("assets/cards/card-contact.svg", telemetry)
 
     print("\nAll cards generated successfully!")
 

@@ -77,33 +77,11 @@
     <g transform="translate(0, 0)">
       <circle cx="6" cy="11" r="4.5" fill="#00f2c3"/>
       <text x="22" y="16" class="lang-name">Python</text>
-      <text x="230" y="16" class="lang-pct">52%</text>
+      <text x="230" y="16" class="lang-pct">100%</text>
       <!-- Progress Bar Track -->
       <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#0b1e24"/>
       <!-- Filled Bar -->
-      <rect x="280" y="7" width="312" height="9" rx="4.5" fill="#00f2c3"/>
-    </g>
-
-    <!-- Row 2: SVG / Vector -->
-    <g transform="translate(0, 36)">
-      <circle cx="6" cy="11" r="4.5" fill="#38bdf8"/>
-      <text x="22" y="16" class="lang-name">SVG / Vector</text>
-      <text x="230" y="16" class="lang-pct">33%</text>
-      <!-- Progress Bar Track -->
-      <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#0b1e24"/>
-      <!-- Filled Bar -->
-      <rect x="280" y="7" width="198" height="9" rx="4.5" fill="#38bdf8"/>
-    </g>
-
-    <!-- Row 3: YAML / CI-CD -->
-    <g transform="translate(0, 72)">
-      <circle cx="6" cy="11" r="4.5" fill="#34d399"/>
-      <text x="22" y="16" class="lang-name">YAML / Actions</text>
-      <text x="230" y="16" class="lang-pct">15%</text>
-      <!-- Progress Bar Track -->
-      <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#0b1e24"/>
-      <!-- Filled Bar -->
-      <rect x="280" y="7" width="90" height="9" rx="4.5" fill="#34d399"/>
+      <rect x="280" y="7" width="600" height="9" rx="4.5" fill="#00f2c3"/>
     </g>
   </g>
 

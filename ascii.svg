@@ -49,8 +49,7 @@
       .term-title {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12px;
-        fill: #00f2c3;
-        font-weight: 500;
+        fill: #8b949e;
       }
       .live-badge {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -83,13 +82,13 @@
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12px;
         fill: #143533;
-        letter-spacing: 2px;
+        letter-spacing: 1px;
       }
       .sys-value {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
         font-size: 12.5px;
-        fill: #e6edf3;
-        font-weight: 500;
+        fill: #ffffff;
+        font-weight: 700;
       }
       .watermark {
         font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
@@ -129,6 +128,7 @@
   <!-- Right Sub-Panel: SYSTEM.INFO -->
   <rect x="480" y="48" width="460" height="512" rx="12" fill="url(#panel-bg)" stroke="#00f2c3" stroke-width="1" stroke-opacity="0.25"/>
   <text x="504" y="70" class="sub-title">SYSTEM.INFO</text>
+  <text x="916" y="70" text-anchor="end" class="watermark" font-size="10">SYNCED: 2026-09-05 04:23 UTC</text>
 
   <!-- ASCII Face in VISUAL.MAP -->
   <g class="ascii-face">
@@ -179,7 +179,13 @@
       <text x="36" y="492.8" xml:space="preserve">                 &amp;S+:...........:==.:..:...::.::-cSSSSS&amp;</text>
   </g>
 
-  <!-- Telemetry in SYSTEM.INFO -->
+  <!-- Animated Live Horizontal Scanning Laser across ASCII Face -->
+  <rect x="20" y="48" width="450" height="40" fill="url(#live-beam)">
+    <animate attributeName="y" values="48;520;48" dur="4.2s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- Telemetry Table in SYSTEM.INFO -->
+  <g>
     <!-- Row: Subject -->
     <text x="504" y="94" class="sys-label">Subject</text>
     <text x="610" y="94" class="sys-dots">......................................</text>
@@ -199,7 +205,7 @@
     <!-- Row: Languages -->
     <text x="504" y="262" class="sys-label">Languages</text>
     <text x="610" y="262" class="sys-dots">......................................</text>
-    <text x="916" y="262" text-anchor="end" class="sys-value">Public repositories</text>
+    <text x="916" y="262" text-anchor="end" class="sys-value">Python</text>
     <!-- Row: Repositories -->
     <text x="504" y="304" class="sys-label">Repositories</text>
     <text x="610" y="304" class="sys-dots">......................................</text>
@@ -207,7 +213,7 @@
     <!-- Row: Contributions -->
     <text x="504" y="346" class="sys-label">Contributions</text>
     <text x="610" y="346" class="sys-dots">......................................</text>
-    <text x="916" y="346" text-anchor="end" class="sys-value">3</text>
+    <text x="916" y="346" text-anchor="end" class="sys-value">4</text>
     <!-- Row: Stars -->
     <text x="504" y="388" class="sys-label">Stars</text>
     <text x="610" y="388" class="sys-dots">......................................</text>
@@ -224,12 +230,7 @@
     <text x="504" y="514" class="sys-label">Contact</text>
     <text x="610" y="514" class="sys-dots">......................................</text>
     <text x="916" y="514" text-anchor="end" class="sys-value">github.com/dexterbeast0-cmyk</text>
-
-
-  <!-- Animated Cyan Sweep Beam Across Panels -->
-  <rect x="21" y="220" width="918" height="56" fill="url(#live-beam)" opacity="0.85" pointer-events="none">
-    <animate attributeName="y" values="80; 450; 80" dur="7s" repeatCount="indefinite"/>
-  </rect>
+  </g>
 
   <!-- Watermark -->
   <text x="936" y="568" text-anchor="end" class="watermark">gitskins.com</text>

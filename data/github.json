@@ -1,0 +1,59 @@
+{
+  "contributions": {
+    "active_cells": [
+      [
+        22,
+        2
+      ],
+      [
+        44,
+        2
+      ],
+      [
+        51,
+        6
+      ]
+    ],
+    "active_days": 3,
+    "total": 4
+  },
+  "display_name": "Abhay Pratap singh",
+  "languages": [
+    {
+      "bytes": 67258,
+      "name": "Python",
+      "percentage": 100
+    }
+  ],
+  "stats": {
+    "active_days": 3,
+    "followers": 0,
+    "following": 0,
+    "forks": 0,
+    "public_repos": 1,
+    "stars": 0,
+    "total_contributions": 4
+  },
+  "synced_at": "2026-09-05 04:23 UTC",
+  "top_repositories": [
+    {
+      "description": "Building with code on GitHub.",
+      "language": "Python",
+      "name": "dexterbeast0-cmyk",
+      "progress_percent": 80,
+      "stars": 0,
+      "tag": "open-source",
+      "updated_at": "2026-09-05"
+    },
+    {
+      "description": "Reusable building blocks and utilities.",
+      "language": "Python",
+      "name": "toolkit",
+      "progress_percent": 65,
+      "stars": 0,
+      "tag": "utilities",
+      "updated_at": "building"
+    }
+  ],
+  "username": "dexterbeast0-cmyk"
+}

@@ -1,6 +1,8 @@
-name: Regenerate Cyber Terminal Profile Assets
+name: Update Cyber Profile & Telemetry
 
 on:
+  schedule:
+    - cron: '17 2 * * *'  # Daily scheduled sync at 02:17 UTC
   push:
     branches:
       - main
@@ -16,7 +18,7 @@ permissions:
   contents: write
 
 jobs:
-  generate-assets:
+  update-profile:
     runs-on: ubuntu-latest
 
     steps:
@@ -34,6 +36,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Fetch live GitHub telemetry
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/fetch_github_data.py
+
       - name: Generate cyber terminal cards and portrait
         run: python scripts/make_portrait.py
 
@@ -41,10 +48,10 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add ascii.svg name.svg assets/cards/
+          git add data/ ascii.svg name.svg assets/cards/
           if git diff --staged --quiet; then
-            echo "Profile assets are already up to date. Nothing to commit."
+            echo "Profile assets and telemetry are already up to date. Nothing to commit."
           else
-            git commit -m "chore(assets): regenerate cyber profile and cards [skip ci]"
+            git commit -m "chore(telemetry): sync live GitHub metrics [skip ci]"
             git push
           fi

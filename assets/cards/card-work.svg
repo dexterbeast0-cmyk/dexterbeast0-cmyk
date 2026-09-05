@@ -95,24 +95,23 @@
 
   <!-- Two Project Sub-Cards -->
   <g transform="translate(30, 56)">
-    <!-- Sub-Card 1: dexterbeast0-cmyk -->
+    <!-- Sub-Card 1 -->
     <g transform="translate(0, 0)">
       <rect x="0" y="0" width="436" height="176" rx="10" fill="url(#work-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <!-- Top mini bar inside card -->
       <path d="M 0 10 C 0 4.5 4.5 0 10 0 L 426 0 C 431.5 0 436 4.5 436 10 L 436 28 L 0 28 Z" fill="#061217"/>
       <line x1="0" y1="28" x2="436" y2="28" stroke="#00f2c3" stroke-width="0.6" stroke-opacity="0.2"/>
       <circle cx="16" cy="14" r="3" fill="#00f2c3"/>
-      <text x="26" y="18" font-family="ui-monospace, monospace" font-size="11" fill="#8b949e">awesome-project</text>
+      <text x="26" y="18" font-family="ui-monospace, monospace" font-size="11" fill="#8b949e">dexterbeast0-cmyk</text>
       <circle cx="420" cy="14" r="3.5" fill="#39d353"/>
 
       <!-- Content -->
-      <text x="20" y="56" class="proj-title">awesome-project &#160;<tspan fill="#00f2c3">_</tspan></text>
-      <text x="20" y="78" class="proj-desc">A standout open-source project.</text>
+      <text x="20" y="56" class="proj-title">dexterbeast0-cmyk &#160;<tspan fill="#00f2c3">_</tspan></text>
+      <text x="20" y="78" class="proj-desc">Building with code on GitHub.</text>
 
-      <!-- Donut Progress Chart on Right: 80% -->
+      <!-- Donut Progress Chart on Right -->
       <g transform="translate(380, 84)">
         <circle cx="0" cy="0" r="28" fill="none" stroke="#0b242e" stroke-width="7"/>
-        <!-- 80% of 2*pi*28 = 175.9. Circumference = 175.9. 80% stroke = 140.7, dasharray = 140.7 35.2 -->
         <circle cx="0" cy="0" r="28" fill="none" stroke="#38bdf8" stroke-width="7" stroke-dasharray="140.7 35.2" stroke-dashoffset="44" stroke-linecap="round" filter="url(#donut-glow)"/>
         <text x="0" y="4" text-anchor="middle" class="donut-text">80%</text>
       </g>
@@ -122,10 +121,10 @@
       <text x="64" y="119" text-anchor="middle" class="proj-pill">open-source</text>
 
       <!-- Footer Meta -->
-      <text x="20" y="152" class="proj-meta">★ 0 &#160;&#160; updated just now</text>
+      <text x="20" y="152" class="proj-meta">★ 0 &#160;&#160; updated 2026-09-05</text>
     </g>
 
-    <!-- Sub-Card 2: toolkit -->
+    <!-- Sub-Card 2 -->
     <g transform="translate(464, 0)">
       <rect x="0" y="0" width="436" height="176" rx="10" fill="url(#work-card-bg)" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.25"/>
       <!-- Top mini bar -->
@@ -137,11 +136,21 @@
 
       <!-- Content -->
       <text x="20" y="56" class="proj-title">toolkit &#160;<tspan fill="#00f2c3">_</tspan></text>
-      <text x="20" y="78" class="proj-desc">Reusable building blocks and</text>
-      <text x="20" y="96" class="proj-desc">utilities.</text>
+      <text x="20" y="78" class="proj-desc">Reusable building blocks and utiliti</text>
+
+      <!-- Donut Progress Chart on Right -->
+      <g transform="translate(380, 84)">
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#0b242e" stroke-width="7"/>
+        <circle cx="0" cy="0" r="28" fill="none" stroke="#38bdf8" stroke-width="7" stroke-dasharray="114.3 61.6" stroke-dashoffset="44" stroke-linecap="round" filter="url(#donut-glow)"/>
+        <text x="0" y="4" text-anchor="middle" class="donut-text">65%</text>
+      </g>
+
+      <!-- Pill Tag -->
+      <rect x="20" y="104" width="88" height="22" rx="11" fill="#062227" stroke="#00f2c3" stroke-width="0.8" stroke-opacity="0.35"/>
+      <text x="64" y="119" text-anchor="middle" class="proj-pill">utilities</text>
 
       <!-- Footer Meta -->
-      <text x="20" y="152" class="proj-meta">★ 0 &#160;&#160; updated n/a</text>
+      <text x="20" y="152" class="proj-meta">★ 0 &#160;&#160; updated building</text>
     </g>
   </g>
 
