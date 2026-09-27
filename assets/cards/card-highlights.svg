@@ -87,7 +87,7 @@
       <!-- Accent bar on left: Blue -->
       <rect x="2" y="22" width="3.5" height="44" rx="1.5" fill="#58a6ff"/>
       <text x="24" y="38" class="tile-title">Impact</text>
-      <text x="24" y="62" class="tile-sub">0 stars · 3 active days</text>
+      <text x="24" y="62" class="tile-sub">0 stars · 2 active days</text>
     </g>
   </g>
 
