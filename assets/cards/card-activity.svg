@@ -64,7 +64,7 @@
 
   <!-- Header -->
   <text x="44" y="46" class="act-title">Contribution Activity</text>
-  <text x="44" y="68" class="act-sub">5 contributions in the last year</text>
+  <text x="44" y="68" class="act-sub">4 contributions in the last year</text>
 
   <!-- Legend on Top Right -->
   <g transform="translate(780, 36)">
