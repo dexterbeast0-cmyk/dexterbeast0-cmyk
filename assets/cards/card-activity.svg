@@ -384,15 +384,15 @@
     <rect x="742" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="742" y="130" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="742" y="146" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="742" y="162" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="742" y="178" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
+    <rect x="742" y="162" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
+    <rect x="742" y="178" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
     <rect x="758" y="82" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="98" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="130" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="758" y="146" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
-    <rect x="758" y="162" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
-    <rect x="758" y="178" width="12" height="12" rx="2.5" fill="#00f2c3" filter="url(#act-glow)"/>
+    <rect x="758" y="162" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
+    <rect x="758" y="178" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="774" y="82" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="774" y="98" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
     <rect x="774" y="114" width="12" height="12" rx="2.5" fill="#08181e" stroke="#0e2830" stroke-width="0.7"/>
